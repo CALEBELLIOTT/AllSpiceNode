@@ -7,6 +7,7 @@ export class RecipesController extends BaseController {
   constructor() {
     super('api/recipes')
     this.router
+      .get('', this.getAll)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createRecipe)
   }
@@ -16,6 +17,15 @@ export class RecipesController extends BaseController {
       req.body.creatorId = req.userInfo.id
       let recipe = await recipesService.createRecipe(req.body)
       res.send(recipe)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getAll(req, res, next) {
+    try {
+      let recipes = await recipesService.getAll()
+      res.send(recipes)
     } catch (error) {
       next(error)
     }

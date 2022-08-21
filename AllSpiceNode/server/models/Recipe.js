@@ -10,10 +10,9 @@ export const RecipeSchema = new Schema({
   creatorId: { type: String, required: true }
 }
 )
-
 RecipeSchema.virtual("creator", {
   localField: 'creatorId',
   ref: 'Account',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
