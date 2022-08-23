@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { AccountSchema } from '../models/Account'
+import { FavoriteSchema } from "../models/Favorite";
 import { IngredientSchema } from "../models/Ingredient";
 import { RecipeSchema } from "../models/Recipe";
 import { StepSchema } from "../models/Step";
@@ -11,6 +12,7 @@ class DbContext {
   Recipe = mongoose.model('Recipe', RecipeSchema)
   Ingredient = mongoose.model('Ingredient', IngredientSchema)
   Step = mongoose.model('Step', StepSchema)
+  Favorite = mongoose.model('Favorite', FavoriteSchema)
 }
 
 export const dbContext = new DbContext()
