@@ -5,6 +5,7 @@ import { recipesService } from "./RecipesService"
 
 class IngredientsService {
 
+
   async createIngredient(id, body) {
     let targetRecipe = await recipesService.getById(body.recipeId)
     if (!targetRecipe) {
@@ -23,6 +24,22 @@ class IngredientsService {
       throw new BadRequest("invalid ingredient ID")
     }
     return ingredient
+  }
+
+  async deleteIngredient(id, userId) {
+    let target = await this.getById(id)
+    if (!target) {
+      throw new BadRequest("invalid ingredient Id")
+    }
+    let targetRecipe = await recipesService.getById(target.recipeId)
+    if (!targetRecipe) {
+      throw new BadRequest("invalid recipe Id")
+    }
+    if (targetRecipe.creatorId.toString() != userId) {
+      throw new UnAuthorized("Can't delete ingredient to another person's recipe")
+    }
+    await target.delete()
+    return
   }
 
 }

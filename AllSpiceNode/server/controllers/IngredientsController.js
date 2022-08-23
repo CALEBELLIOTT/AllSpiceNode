@@ -10,6 +10,7 @@ export class IngredientsController extends BaseController {
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createIngredient)
+      .delete('/:id', this.deleteIngredient)
   }
 
   async createIngredient(req, res, next) {
@@ -25,6 +26,15 @@ export class IngredientsController extends BaseController {
     try {
       let ingredients = await ingredientsService.getById(req.params.id)
       res.send(ingredients)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteIngredient(req, res, next) {
+    try {
+      await ingredientsService.deleteIngredient(req.params.id, req.userInfo.id)
+      return ('deleted')
     } catch (error) {
       next(error)
     }
