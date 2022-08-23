@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider"
 import { recipesService } from "../services/RecipesService"
 import BaseController from '../utils/BaseController'
+import { BadRequest } from "../utils/Errors"
 
 
 export class RecipesController extends BaseController {
@@ -37,6 +38,9 @@ export class RecipesController extends BaseController {
   async getById(req, res, next) {
     try {
       let recipe = await recipesService.getById(req.params.id)
+      if (!recipe) {
+        throw new BadRequest('invalid recipe ID')
+      }
       res.send(recipe)
     } catch (error) {
       next(error)
