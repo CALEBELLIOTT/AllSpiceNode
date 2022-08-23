@@ -8,7 +8,7 @@ export const RecipeSchema = new Schema({
   subtitle: { type: String, required: true },
   category: { type: String, required: true },
   creatorId: { type: String, required: true }
-}
+}, { timestamps: true, toJSON: { virtuals: true } }
 )
 RecipeSchema.virtual("creator", {
   localField: 'creatorId',
