@@ -43,6 +43,8 @@ function sanitizeBody(body) {
 }
 
 class AccountService {
+
+
   /**
    * Returns a user account from the Auth0 user object
    *
@@ -73,6 +75,27 @@ class AccountService {
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     )
     return account
+  }
+
+
+
+  // NOTE good example of nested populate here
+  async getFavorites(id) {
+    let favorites = await dbContext.Favorite.find({ accountId: id })
+      .populate({
+        path: 'recipe',
+        populate: {
+          path: 'creator'
+        }
+      })
+    return favorites
+  }
+
+
+  async getUserRecipes(id) {
+    let recipes = await dbContext.Recipe.find({ creatorId: id })
+      .populate('creator')
+    return recipes
   }
 }
 export const accountService = new AccountService()
