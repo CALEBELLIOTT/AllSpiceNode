@@ -13,8 +13,7 @@ export class FavoritesController extends BaseController {
 
   async toggleFavorite(req, res, next) {
     try {
-      req.body.accountId = req.userInfo.id
-      let response = await favoritesService.toggleFavorites(req.body)
+      let response = await favoritesService.toggleFavorites(req.body, req.userInfo.id)
       res.send(response)
     } catch (error) {
       next(error)

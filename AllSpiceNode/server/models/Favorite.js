@@ -11,6 +11,6 @@ export const FavoriteSchema = new Schema({
 FavoriteSchema.virtual('recipe', {
   localField: 'recipeId',
   ref: 'Recipe',
-  foreignField: 'id',
+  foreignField: '_id',
   justOne: true
 })
