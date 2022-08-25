@@ -1,7 +1,6 @@
 <template>
   <span class="navbar-text">
-    <button class="btn selectable text-dark lighten-30 text-uppercase my-2 my-lg-0" @click="login"
-      v-if="!user.isAuthenticated">
+    <button class="btn selectable text-primary text-uppercase my-2 my-lg-0" @click="login" v-if="!user.isAuthenticated">
       Login
     </button>
 
@@ -9,7 +8,7 @@
       <div class="dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false" id="authDropdown">
         <div v-if="account.picture || user.picture">
           <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
-          <span class="mx-3 text-dark lighten-30">{{ account.name || user.name }}</span>
+          <span class="mx-3 text-primary">{{ account.name || user.name }}</span>
         </div>
       </div>
       <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
