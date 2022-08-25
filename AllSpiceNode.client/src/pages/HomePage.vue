@@ -2,12 +2,12 @@
   <!-- <div class="hero-img">
   </div> -->
 
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-md-3">
         <div class="bg-light rounded p-2 mt-md-5 mt-3">
           <h4 class="text-center text-primary">Our Recent Favorites</h4>
-          <SmallRecipeCard v-for="r in recipes" :recipe="r" :key="r.id"></SmallRecipeCard>
+          <SmallRecipeCard v-for="r in recentFavorites" :recipe="r" :key="r.id"></SmallRecipeCard>
         </div>
       </div>
       <div class="col-md-6">
@@ -33,7 +33,7 @@
       <div class="col-md-3">
         <div class="p-2 mt-md-5 mt-3 bg-light">
           <h4 class="text-center text-primary">Explore Categories</h4>
-          <p></p>
+          <p v-for="(value, key, index) in categories" class="category-text">{{ key }} ({{ value }})</p>
         </div>
       </div>
     </div>
@@ -44,13 +44,22 @@
 
 <script>
 import { computed } from '@vue/reactivity';
+import { onMounted } from 'vue';
 import { AppState } from '../AppState';
 import SmallRecipeCard from '../components/CardComponents/SmallRecipeCard.vue';
+import { categoriesService } from '../services/CategoriesService';
+import { recipesService } from '../services/RecipesService'
 
 export default {
   setup() {
+    onMounted(async () => {
+      await recipesService.getAllRecipes()
+      categoriesService.getAllCategories()
+      recipesService.randomFiveRecipes()
+    })
     return {
       recipes: computed(() => AppState.recipes),
+      recentFavorites: computed(() => AppState.recentFavorites),
       newestRecipe: computed(() => AppState.recipes[AppState.recipes.length - 1]),
       categories: computed(() => AppState.categories)
     };
@@ -72,5 +81,12 @@ export default {
 .creator-img {
   border-radius: 50%;
   height: 4rem;
+  transition: 200ms;
+}
+
+.category-text:hover {
+  cursor: pointer;
+  color: $primary;
+  transition: 200ms;
 }
 </style>

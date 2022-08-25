@@ -7,17 +7,19 @@ class CategoriesService {
             let lowercaseCategory = r.category.toLowerCase()
             let returnString = lowercaseCategory.charAt(0).toUpperCase() + lowercaseCategory.slice(1)
             if (!dictionary[returnString]) {
+                // dictionary[returnString] = { count: 1, name: returnString }
                 dictionary[returnString] = 1
             } else {
+                // dictionary[returnString].count++
                 dictionary[returnString]++
             }
         })
-        // FIXME broken at the moment
-        for (category in dictionary) {
-            console.log(category);
-            AppState.categories.push({ category: dictionary[category] })
-            console.log(AppState.categories);
-        }
+        // for (let category in dictionary) {
+        //     let toPush = { [category]: dictionary[category] }
+        //     console.log(toPush);
+        //     AppState.categories.push(toPush)
+        // }
+        AppState.categories = dictionary
     }
 }
 

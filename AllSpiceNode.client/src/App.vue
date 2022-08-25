@@ -18,8 +18,6 @@ export default {
   name: 'App',
   setup() {
     onMounted(async () => {
-      await recipesService.getAllRecipes()
-      await categoriesService.getAllCategories()
     })
     return {
       appState: computed(() => AppState)
