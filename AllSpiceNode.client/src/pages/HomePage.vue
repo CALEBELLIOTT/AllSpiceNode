@@ -37,6 +37,13 @@
         </div>
       </div>
     </div>
+
+
+    <div class="row mt-5">
+      <div class="col-md-4" v-for="r in recipes">
+        <MediumRecipeCard :recipe=r></MediumRecipeCard>
+      </div>
+    </div>
   </div>
 
 
@@ -49,6 +56,7 @@ import { AppState } from '../AppState';
 import SmallRecipeCard from '../components/CardComponents/SmallRecipeCard.vue';
 import { categoriesService } from '../services/CategoriesService';
 import { recipesService } from '../services/RecipesService'
+import MediumRecipeCard from '../components/CardComponents/MediumRecipeCard.vue';
 
 export default {
   setup() {
@@ -64,7 +72,7 @@ export default {
       categories: computed(() => AppState.categories)
     };
   },
-  components: { SmallRecipeCard }
+  components: { SmallRecipeCard, MediumRecipeCard }
 }
 </script>
 
