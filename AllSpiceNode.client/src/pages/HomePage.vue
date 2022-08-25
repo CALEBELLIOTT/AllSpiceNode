@@ -20,11 +20,15 @@
           <p class="mt-3">{{ newestRecipe?.subtitle }}</p>
           <div class="d-flex mt-3 align-items-center justify-content-between">
             <div>
-              <button class="btn btn-primary">Learn More</button>
+              <button class="btn btn-primary" @click="navToRecipe(newestRecipe.id)">Learn More</button>
             </div>
-            <div class="d-flex align-items-center">
-              <img class="creator-img" :src="newestRecipe?.creator.picture" alt="">
-              <p class="m-0 ms-2">{{ newestRecipe?.creator.name }}</p>
+            <div class="d-flex flex-column">
+              <p class="m-0 text-muted text-center">Recipe Creator</p>
+              <div class="d-flex align-items-center bg-primary rounded text-light p-2 pointer"
+                @click="navToProfile(newestRecipe.creator.id)">
+                <img class="creator-img" :src="newestRecipe?.creator.picture" alt="">
+                <p class="m-0 ms-2">{{ newestRecipe?.creator.name }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -57,6 +61,7 @@ import SmallRecipeCard from '../components/CardComponents/SmallRecipeCard.vue';
 import { categoriesService } from '../services/CategoriesService';
 import { recipesService } from '../services/RecipesService'
 import MediumRecipeCard from '../components/CardComponents/MediumRecipeCard.vue';
+import { router } from '../router';
 
 export default {
   setup() {
@@ -69,7 +74,13 @@ export default {
       recipes: computed(() => AppState.recipes),
       recentFavorites: computed(() => AppState.recentFavorites),
       newestRecipe: computed(() => AppState.recipes[AppState.recipes.length - 1]),
-      categories: computed(() => AppState.categories)
+      categories: computed(() => AppState.categories),
+      navToProfile(id) {
+        router.push({ name: 'Profile', params: { id } })
+      },
+      navToRecipe(id) {
+        router.push({ name: "Recipe", params: { id } })
+      }
     };
   },
   components: { SmallRecipeCard, MediumRecipeCard }
@@ -78,6 +89,11 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/scss/variables";
+
+
+.pointer:hover {
+  cursor: pointer;
+}
 
 .newest-recipe-img {
   height: 50vh;

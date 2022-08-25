@@ -1,6 +1,6 @@
 <template>
     <div class="component">
-        <div class="p-2 bg-light whole-container">
+        <div class="p-2 bg-light whole-container" @click="navToRecipe(recipe.id)">
             <div class="row">
                 <div class="col-6">
                     <img class="recipe-img" :src="recipe.picture" :alt="recipe.subtitle">
@@ -17,10 +17,16 @@
 
 
 <script>
+import { router } from '../../router';
+
 export default {
     props: { recipe: { type: Object, required: true } },
     setup() {
-        return {}
+        return {
+            navToRecipe(id) {
+                router.push({ name: "Recipe", params: { id } })
+            }
+        }
     }
 }
 </script>

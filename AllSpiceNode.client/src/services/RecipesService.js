@@ -11,7 +11,11 @@ class RecipesService {
         let recipes = []
         for (let i = 0; i < 5; i++) {
             let target = AppState.recipes[Math.floor(Math.random() * AppState.recipes.length)]
-            recipes.push(target)
+            if (recipes.includes(target)) {
+                i--
+            } else {
+                recipes.push(target)
+            }
         }
         AppState.recentFavorites = recipes
     }
