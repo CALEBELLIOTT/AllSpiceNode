@@ -7,7 +7,33 @@
       <div class="col-md-3">
         <div class="bg-light rounded p-2 mt-md-5 mt-3">
           <h4 class="text-center text-primary">Our Recent Favorites</h4>
+          <SmallRecipeCard v-for="r in recipes" :recipe="r" :key="r.id"></SmallRecipeCard>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="bg-light p-2 mt-md-5 mt-3">
+          <h4 class="text-center text-primary">Our Newest Recipe</h4>
+          <img :src="newestRecipe?.picture" class="newest-recipe-img" alt="">
+          <div>
+            <h4 class="text-center mt-2 text-primary fw-bold">{{ newestRecipe?.title }}</h4>
+          </div>
+          <p class="mt-3">{{ newestRecipe?.subtitle }}</p>
+          <div class="d-flex mt-3 align-items-center justify-content-between">
+            <div>
+              <button class="btn btn-primary">Learn More</button>
+            </div>
+            <div class="d-flex align-items-center">
+              <img class="creator-img" :src="newestRecipe?.creator.picture" alt="">
+              <p class="m-0 ms-2">{{ newestRecipe?.creator.name }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="col-md-3">
+        <div class="p-2 mt-md-5 mt-3 bg-light">
+          <h4 class="text-center text-primary">Explore Categories</h4>
+          <p></p>
         </div>
       </div>
     </div>
@@ -17,21 +43,34 @@
 </template>
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState';
+import SmallRecipeCard from '../components/CardComponents/SmallRecipeCard.vue';
+
 export default {
-  name: 'Home'
+  setup() {
+    return {
+      recipes: computed(() => AppState.recipes),
+      newestRecipe: computed(() => AppState.recipes[AppState.recipes.length - 1]),
+      categories: computed(() => AppState.categories)
+    };
+  },
+  components: { SmallRecipeCard }
 }
 </script>
 
 <style scoped lang="scss">
 @import "../assets/scss/variables";
 
-// .hero-img {
-//   background-image: url(https://i.imgur.com/VYyBKmi.jpg);
-//   border-top: 2px solid $primary;
-//   height: 75vh;
-//   width: 100vw;
-//   background-size: cover;
-//   background-repeat: no-repeat;
+.newest-recipe-img {
+  height: 50vh;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+}
 
-// }
+.creator-img {
+  border-radius: 50%;
+  height: 4rem;
+}
 </style>
