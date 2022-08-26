@@ -57,7 +57,8 @@
             <div class="col-12 mt-4">
                 <h4 class="m-0 text-primary">Made This Recipe?</h4>
                 <p class="text-muted m-0">leave a review</p>
-                <div class="d-flex align-items-center">
+                <p class="mt-3 text-muted text-center mb-5">Sign in to leave a review...</p>
+                <div class="d-flex align-items-center" v-if="account.id">
                     <h1><i class="mdi mdi-star text-primary" v-for="i in parseInt(newReview.rating)"></i><i
                             class="mdi mdi-star-outline text-primary"
                             v-for="index in 5 - parseInt(newReview.rating)"></i></h1>
@@ -69,9 +70,11 @@
                         <option value="5">5</option>
                     </select>
                 </div>
-                <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newReview.body"></textarea>
+                <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newReview.body"
+                    v-if="account.id"></textarea>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-outline-primary mt-2" @click="createReview()">Submit</button>
+                    <button class="btn btn-outline-primary mt-2 mb-5" @click="createReview()"
+                        v-if="account.id">Submit</button>
                 </div>
             </div>
         </div>
@@ -88,6 +91,8 @@ import { AppState } from '../AppState';
 import { router } from '../router';
 import { recipesService } from '../services/RecipesService';
 import { reviewsService } from '../services/ReviewsService';
+import { stepsService } from '../services/StepsService';
+import { ingredientsService } from '../services/IngredientsService';
 
 export default {
     async beforeCreate() {
@@ -96,6 +101,8 @@ export default {
         await reviewsService.getRecipeReviews(route.params.id)
         await reviewsService.getAverageReview()
         await recipesService.getProfileRecipes(AppState.activeRecipe.creatorId)
+        await stepsService.getRecipeSteps(route.params.id)
+        await ingredientsService.getRecipeIngredients(route.params.id)
     },
     setup() {
         let newReview = ref({ rating: 0 })
@@ -116,6 +123,7 @@ export default {
             reviews: computed(() => AppState.activeRecipeReviews),
             rating: computed(() => AppState.activeRecipeRating),
             newReview,
+            account: computed(() => AppState.account),
             profileRecipes: computed(() => AppState.activeRecipeAccountRecipes),
             navToProfile(id) {
                 router.push({ name: 'Profile', params: { id } })

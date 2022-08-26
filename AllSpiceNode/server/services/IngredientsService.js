@@ -6,6 +6,7 @@ import { recipesService } from "./RecipesService"
 class IngredientsService {
 
 
+
   async createIngredient(id, body) {
     let targetRecipe = await recipesService.getById(body.recipeId)
     if (!targetRecipe) {
@@ -40,6 +41,12 @@ class IngredientsService {
     }
     await target.delete()
     return
+  }
+
+
+  async getRecipeIngredients(recipeId) {
+    let ingredients = await dbContext.Ingredient.find({ recipeId })
+    return ingredients
   }
 
 }

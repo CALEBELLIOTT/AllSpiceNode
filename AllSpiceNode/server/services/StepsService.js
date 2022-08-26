@@ -5,6 +5,7 @@ import { recipesService } from "./RecipesService"
 
 class StepsService {
 
+
   async createStep(body, userId) {
     let targetRecipe = await recipesService.getById(body.recipeId)
     if (!targetRecipe) {
@@ -33,6 +34,12 @@ class StepsService {
     }
     await target.delete()
     return
+  }
+
+
+  async getRecipeSteps(recipeId) {
+    let steps = await dbContext.Step.find({ recipeId })
+    return steps
   }
 
 
