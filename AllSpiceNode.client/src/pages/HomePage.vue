@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="bg-light p-2 mt-md-5 mt-3">
+        <div class="bg-light p-2 mt-md-5 mt-3 rounded">
           <h4 class="text-center text-primary">Our Newest Recipe</h4>
           <img :src="newestRecipe?.picture" class="newest-recipe-img" alt="">
           <div>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="col-md-3">
-        <div class="p-2 mt-md-5 mt-3 bg-light">
+        <div class="p-2 mt-md-5 mt-3 bg-light rounded">
           <h4 class="text-center text-primary">Explore Categories</h4>
           <p v-for="(value, key, index) in categories" class="category-text">{{ key }} ({{ value }})</p>
         </div>

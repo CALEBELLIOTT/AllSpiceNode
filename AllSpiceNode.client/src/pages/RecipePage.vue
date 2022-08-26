@@ -32,6 +32,37 @@
         </div>
 
 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="bg-light rounded p-2 mt-4">
+                    <h4 class="text-primary text-center m-0"><i class="mdi mdi-chef-hat"></i> Recipe Ingredients</h4>
+                    <div class="divider-line"></div>
+                    <div class="mt-4">
+                        <div class="mb-2">
+                            <ul>
+                                <li v-for="i in ingredients" :key="i.id">{{ i.name }}, {{ i.quantity }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="bg-light rounded p-2 mt-4">
+                    <h4 class="text-primary text-center m-0"><i class="mdi mdi-format-list-numbered"></i> Recipe Steps
+                    </h4>
+                    <div class="divider-line"></div>
+                    <div class="mt-4">
+                        <div class="d-flex mb-2" v-for="s in steps" :key="s.id">
+                            <p><span class="bg-primary text-light p-2 step-background">{{ s.position }}</span> {{ s.body
+                            }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="row">
             <div class="col-12">
@@ -57,7 +88,7 @@
             <div class="col-12 mt-4">
                 <h4 class="m-0 text-primary">Made This Recipe?</h4>
                 <p class="text-muted m-0">leave a review</p>
-                <p class="mt-3 text-muted text-center mb-5">Sign in to leave a review...</p>
+                <p class="mt-3 text-muted text-center mb-5" v-if="!account.id">Sign in to leave a review...</p>
                 <div class="d-flex align-items-center" v-if="account.id">
                     <h1><i class="mdi mdi-star text-primary" v-for="i in parseInt(newReview.rating)"></i><i
                             class="mdi mdi-star-outline text-primary"
@@ -71,7 +102,7 @@
                     </select>
                 </div>
                 <textarea name="" id="" cols="30" rows="10" class="form-control" v-model="newReview.body"
-                    v-if="account.id"></textarea>
+                    v-if="account.id" placeholder="Tell us about your experience..."></textarea>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-outline-primary mt-2 mb-5" @click="createReview()"
                         v-if="account.id">Submit</button>
@@ -117,6 +148,8 @@ export default {
             AppState.activeRecipeAccountRecipes = []
             AppState.activeRecipeReviews = []
             AppState.activeRecipeRating = 0
+            AppState.activeRecipeIngredients = []
+            AppState.activeRecipeSteps = []
         })
         return {
             recipe: computed(() => AppState.activeRecipe),
@@ -125,6 +158,8 @@ export default {
             newReview,
             account: computed(() => AppState.account),
             profileRecipes: computed(() => AppState.activeRecipeAccountRecipes),
+            ingredients: computed(() => AppState.activeRecipeIngredients),
+            steps: computed(() => AppState.activeRecipeSteps),
             navToProfile(id) {
                 router.push({ name: 'Profile', params: { id } })
             },
@@ -141,6 +176,8 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "../assets/scss/variables";
+
 .recipe-img {
     height: 80vh;
     width: 100%;
@@ -158,5 +195,33 @@ export default {
 .select {
     height: 2.5rem;
     width: 4rem;
+}
+
+.divider-line {
+    background-color: $primary;
+    height: 2px;
+    width: 75%;
+    margin: auto;
+    margin-top: 4px;
+    border-radius: 2px;
+}
+
+.step-background {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li::before {
+    content: "\2022";
+    color: $primary;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
 }
 </style>
