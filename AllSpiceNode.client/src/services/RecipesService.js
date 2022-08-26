@@ -24,6 +24,12 @@ class RecipesService {
         }
         AppState.recentFavorites = recipes
     }
+
+    async getProfileRecipes(id) {
+        let res = await api.get('account/' + id + "/recipes")
+        console.log(res.data);
+        AppState.activeRecipeAccountRecipes = res.data
+    }
 }
 
 export const recipesService = new RecipesService()

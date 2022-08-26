@@ -13,11 +13,16 @@
             <div class="col-md-3 mt-3 mt-md-0">
                 <div class="bg-light p-2 rounded">
                     <h4 class="text-primary text-center">Creator</h4>
-                    <!-- TODO havent written this method yet -->
-                    <div class="d-flex" @click="navToProfile(recipe.creator.id)">
-                        <img :src="recipe.creator?.picture" alt="">
-                        <p>{{ recipe.creator?.name }}</p>
+                    <!-- FIXME This is broken - rendering doesn't wait for the recipe to be set throwing an error -->
+                    <!-- <router-link :to="{ name: 'Profile', params: { id: recipe?.creatorId } }"> -->
+                    <div class="d-flex align-items-center" @click="navToProfile(recipe?.creatorId)">
+                        <img :src="recipe.creator?.picture" class="profile-img" alt="">
+                        <div>
+                            <p class="ms-2 my-0">{{ recipe.creator?.name }}</p>
+                            <p class="ms-2 my-0">Published {{ profileRecipes.length }} recipes</p>
+                        </div>
                     </div>
+                    <!-- </router-link> -->
                 </div>
             </div>
         </div>
@@ -31,19 +36,25 @@ import { computed } from '@vue/reactivity';
 import { onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
+import { router } from '../router';
 import { recipesService } from '../services/RecipesService';
 
 export default {
     setup() {
         let route = useRoute()
         onMounted(async () => {
-            AppState.activeRecipe = await recipesService.setActiveRecipe(route.params.id)
+            await recipesService.setActiveRecipe(route.params.id)
+            await recipesService.getProfileRecipes(AppState.activeRecipe.creatorId)
         })
         onUnmounted(() => {
             AppState.activeRecipe = {}
         })
         return {
-            recipe: computed(() => AppState.activeRecipe)
+            recipe: computed(() => AppState.activeRecipe),
+            profileRecipes: computed(() => AppState.activeRecipeAccountRecipes),
+            navToProfile(id) {
+                router.push({ name: 'Profile', params: { id } })
+            }
         }
     }
 }
@@ -55,5 +66,9 @@ export default {
     height: 80vh;
     width: 100%;
     object-fit: cover;
+}
+
+.profile-img {
+    border-radius: 50%;
 }
 </style>

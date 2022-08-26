@@ -6,6 +6,7 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
+      .get('/:id/recipes', this.getAccountRecipes)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .get('/favorites', this.getUserFavorites)
@@ -34,6 +35,15 @@ export class AccountController extends BaseController {
   async getUserRecipes(req, res, next) {
     try {
       let recipes = await accountService.getUserRecipes(req.userInfo.id)
+      res.send(recipes)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getAccountRecipes(req, res, next) {
+    try {
+      let recipes = await accountService.getUserRecipes(req.params.id)
       res.send(recipes)
     } catch (error) {
       next(error)

@@ -45,6 +45,7 @@ function sanitizeBody(body) {
 class AccountService {
 
 
+
   /**
    * Returns a user account from the Auth0 user object
    *
