@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-light px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <!-- <img alt="logo" src="https://media-cdn.tripadvisor.com/media/photo-s/15/35/6c/34/logo.jpg" height="45" /> -->
+      <div class="d-flex flex-column align-items-center position-relative">
+        <img alt="logo" src="https://i.imgur.com/H4p3VBX.png" class="logo" />
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -39,5 +39,9 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.logo {
+  height: 3rem;
 }
 </style>

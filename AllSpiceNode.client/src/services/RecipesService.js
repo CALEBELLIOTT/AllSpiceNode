@@ -7,6 +7,11 @@ class RecipesService {
         AppState.recipes = res.data
     }
 
+    async setActiveRecipe(id) {
+        let res = await api.get("api/recipes/" + id)
+        AppState.activeRecipe = res.data
+    }
+
     async randomFiveRecipes() {
         let recipes = []
         for (let i = 0; i < 5; i++) {
