@@ -35,7 +35,7 @@
 
         <div class="row">
             <div class="col-12">
-                <h4 class="text-primary mt-4">What others are saying</h4>
+                <h4 class="text-primary mt-4">What Others Are Saying</h4>
                 <div class="row">
                     <p class="text-muted" v-if="reviews.length == 0">No Reviews Yet...</p>
                     <div class="col-md-6 mb-2" v-for="r in reviews">
@@ -109,6 +109,7 @@ export default {
             AppState.activeRecipe = {}
             AppState.activeRecipeAccountRecipes = []
             AppState.activeRecipeReviews = []
+            AppState.activeRecipeRating = 0
         })
         return {
             recipe: computed(() => AppState.activeRecipe),
