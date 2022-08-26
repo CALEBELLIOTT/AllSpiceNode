@@ -27,7 +27,6 @@ class RecipesService {
 
     async getProfileRecipes(id) {
         let res = await api.get('account/' + id + "/recipes")
-        console.log(res.data);
         AppState.activeRecipeAccountRecipes = res.data
     }
 }
