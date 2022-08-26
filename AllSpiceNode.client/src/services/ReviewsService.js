@@ -4,6 +4,11 @@ import { api } from "./AxiosService"
 
 class ReviewsService {
 
+    async createReview(data) {
+        const res = await api.post('api/reviews', data)
+        AppState.activeRecipeReviews.push(res.data)
+    }
+
 
     async getRecipeReviews(id) {
         const res = await api.get('api/recipes/' + id + '/reviews')

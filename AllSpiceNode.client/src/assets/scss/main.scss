@@ -23,19 +23,6 @@ a {
   text-decoration: none;
 }
 
-input,
-textarea,
-select {
-  &:not(:placeholder-shown) {
-    &:valid {
-      border: 1px solid $success;
-    }
-
-    &:invalid {
-      border: 1px solid $danger;
-    }
-  }
-}
 
 form:invalid button[type="submit"] {
   filter: grayscale(1);
