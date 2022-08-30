@@ -44,9 +44,6 @@ function sanitizeBody(body) {
 
 class AccountService {
 
-
-
-
   /**
    * Returns a user account from the Auth0 user object
    *
@@ -101,9 +98,21 @@ class AccountService {
   }
 
 
+
+
   async getOtherUserAccount(id) {
     let account = await dbContext.Account.findById(id)
     return account
+  }
+
+  async getOtherUserRecipes(id) {
+    let recipes = await dbContext.Recipe.find({ creatorId: id })
+    return recipes
+  }
+
+  async getOtherUserReviews(id) {
+    let reviews = await dbContext.Review.find({ creatorId: id })
+    return reviews
   }
 }
 export const accountService = new AccountService()

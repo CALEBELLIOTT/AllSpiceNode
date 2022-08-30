@@ -8,6 +8,8 @@ export class AccountController extends BaseController {
     this.router
       .get('/:id/recipes', this.getAccountRecipes)
       .get('/:id', this.getOtherUserAccount)
+      .get('/:id/recipes', this.getOtherUserRecipes)
+      .get('/:id/reviews', this.getOtherUserReviews)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .get('/favorites', this.getUserFavorites)
@@ -55,6 +57,24 @@ export class AccountController extends BaseController {
     try {
       let recipes = await accountService.getUserRecipes(req.params.id)
       res.send(recipes)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getOtherUserRecipes(req, res, next) {
+    try {
+      let recipes = await accountService.getOtherUserRecipes(req.params.id)
+      res.send(recipes)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getOtherUserReviews(req, res, next) {
+    try {
+      let reviews = await accountService.getOtherUserReviews(req.params.id)
+      res.send(reviews)
     } catch (error) {
       next(error)
     }

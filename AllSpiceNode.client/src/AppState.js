@@ -20,5 +20,7 @@ export const AppState = reactive({
   activeRecipeAccountRecipes: [],
 
   // Profile Page
-  activeProfile: {}
+  activeProfile: {},
+  activeProfileRecipes: [],
+  activeProfileReviews: {}
 })

@@ -17,6 +17,16 @@ class AccountService {
     AppState.activeProfile = res.data
   }
 
+  async getAccountRecipes(id) {
+    let res = await api.get('account/' + id + '/recipes')
+    AppState.activeProfileRecipes = res.data
+  }
+
+  async getAccountReviews(id) {
+    let res = await api.get('account/' + id + '/reviews')
+    AppState.activeProfileReviews = res.data
+  }
+
 }
 
 export const accountService = new AccountService()

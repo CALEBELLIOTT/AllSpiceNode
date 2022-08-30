@@ -117,7 +117,7 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { AppState } from '../AppState';
 import { router } from '../router';
 import { recipesService } from '../services/RecipesService';
@@ -136,6 +136,7 @@ export default {
         await ingredientsService.getRecipeIngredients(route.params.id)
     },
     setup() {
+        let router = useRouter()
         let newReview = ref({ rating: 0 })
         onMounted(async () => {
         })

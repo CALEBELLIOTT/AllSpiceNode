@@ -17,11 +17,12 @@
 
 
 <script>
+import { useRouter } from "vue-router";
 import { router } from '../../router';
-
 export default {
     props: { recipe: { type: Object, required: true } },
     setup() {
+        let router = useRouter()
         return {
             navToRecipe(id) {
                 router.push({ name: "Recipe", params: { id } })
