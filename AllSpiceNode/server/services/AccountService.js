@@ -46,6 +46,7 @@ class AccountService {
 
 
 
+
   /**
    * Returns a user account from the Auth0 user object
    *
@@ -97,6 +98,12 @@ class AccountService {
     let recipes = await dbContext.Recipe.find({ creatorId: id })
       .populate('creator')
     return recipes
+  }
+
+
+  async getOtherUserAccount(id) {
+    let account = await dbContext.Account.findById(id)
+    return account
   }
 }
 export const accountService = new AccountService()
