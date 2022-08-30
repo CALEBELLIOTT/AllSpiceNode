@@ -22,7 +22,6 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { router } from '../../router';
 
 export default {
     props: { recipe: { type: Object, required: true } },

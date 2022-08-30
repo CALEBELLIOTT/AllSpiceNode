@@ -21,18 +21,36 @@
             <div class="col-12">
                 <div class="d-flex align-items-end">
                     <h3 class="text-primary m-0">{{ profile.name }}'s Recipes</h3>
-                    <p class="text-muted m-0 mx-2">(side scroll for more)</p>
+                    <p class="text-muted m-0 ms-2">(side scroll for more)</p>
                 </div>
                 <div class="divider-line mb-2 rounded"></div>
             </div>
             <div class="col-12">
                 <div class="d-flex recipe-card-container">
-                    <div class="recipe-card" v-for="r in recipes">
+                    <div class="item-card" v-for="r in recipes">
                         <MediumRecipeCard :recipe=r class="me-4"></MediumRecipeCard>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="d-flex align-items-end">
+                    <h3 class="text-primary m-0">{{ profile.name }}'s Reviews</h3>
+                    <p class="text-muted m-0 mx-2">(side scroll for more)</p>
+                </div>
+                <div class="divider-line mb-2 rounded"></div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex recipe-card-container my-2 pb-4">
+                    <div class="item-card" v-for="r in reviews">
+                        <ProfilePageReview :r=r class="me-4"></ProfilePageReview>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -81,7 +99,23 @@ export default {
     overflow-x: scroll;
 }
 
-.recipe-card {
+.item-card {
     min-width: 25rem;
+}
+
+
+.recipe-card-container::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.recipe-card-container::-webkit-scrollbar-thumb {
+    background-color: $primary;
+    border-radius: 5px;
+}
+
+.recipe-card-container::-webkit-scrollbar-track {
+    background-color: #e9ecef;
+    border-radius: 5px;
 }
 </style>

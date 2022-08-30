@@ -24,6 +24,7 @@ class AccountService {
 
   async getAccountReviews(id) {
     let res = await api.get('account/' + id + '/reviews')
+    console.log(res.data);
     AppState.activeProfileReviews = res.data
   }
 

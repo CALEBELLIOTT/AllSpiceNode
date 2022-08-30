@@ -111,7 +111,7 @@ class AccountService {
   }
 
   async getOtherUserReviews(id) {
-    let reviews = await dbContext.Review.find({ creatorId: id })
+    let reviews = await dbContext.Review.find({ creatorId: id }).populate('creator').populate('recipe')
     return reviews
   }
 }

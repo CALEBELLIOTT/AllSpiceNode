@@ -70,18 +70,7 @@
                 <div class="row">
                     <p class="text-muted" v-if="reviews.length == 0">No Reviews Yet...</p>
                     <div class="col-md-6 mb-2" v-for="r in reviews">
-                        <div class="bg-light p-2 rounded">
-
-                            <div class="d-flex align-items-center">
-                                <img :src="r.creator.picture" class="profile-img" height="50" alt="">
-                                <p class="my-0 ms-2">{{ r.creator.name }}</p>
-                            </div>
-                            <h2><i class="mdi mdi-star text-primary" v-for="index in r.rating"></i><i
-                                    class="mdi mdi-star-outline text-primary" v-for="index in 5 - r.rating"></i></h2>
-                            <p><span class="text-primary font-weight-bold">"</span>{{ r.body
-                            }}<span class="text-primary font-weight-bold">"</span></p>
-                        </div>
-
+                        <Review :r="r"></Review>
                     </div>
                 </div>
             </div>
