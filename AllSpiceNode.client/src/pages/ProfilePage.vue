@@ -19,11 +19,18 @@
 
         <div class="row mt-5">
             <div class="col-12">
-                <h3 class="text-primary m-0">{{ profile.name }}'s Recipes</h3>
+                <div class="d-flex align-items-end">
+                    <h3 class="text-primary m-0">{{ profile.name }}'s Recipes</h3>
+                    <p class="text-muted m-0 mx-2">(side scroll for more)</p>
+                </div>
                 <div class="divider-line mb-2 rounded"></div>
             </div>
-            <div class="col-md-4 mt-2" v-for="r in recipes">
-                <MediumRecipeCard :recipe=r></MediumRecipeCard>
+            <div class="col-12">
+                <div class="d-flex recipe-card-container">
+                    <div class="recipe-card" v-for="r in recipes">
+                        <MediumRecipeCard :recipe=r class="me-4"></MediumRecipeCard>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -68,5 +75,13 @@ export default {
     height: 2px;
     width: 75vw;
     background-color: $primary;
+}
+
+.recipe-card-container {
+    overflow-x: scroll;
+}
+
+.recipe-card {
+    min-width: 25rem;
 }
 </style>

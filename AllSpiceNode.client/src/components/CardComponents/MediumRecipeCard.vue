@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 .recipe-img {
     width: 100%;
-    height: 20vw;
+    height: 15rem;
     object-fit: cover;
 }
 
