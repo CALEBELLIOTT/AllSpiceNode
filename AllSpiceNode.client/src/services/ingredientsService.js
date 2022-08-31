@@ -7,6 +7,14 @@ class IngredientsService {
     const res = await api.get(`api/recipes/${recipeId}/ingredients`)
     AppState.activeRecipeIngredients = res.data
   }
+
+  async createIngredientsFromArray(ingredients) {
+    ingredients.forEach(i => {
+      const res = api.post('api/ingredients', i)
+      console.log(res.data);
+    })
+  }
+
 }
 
 

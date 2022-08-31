@@ -7,7 +7,7 @@
         </div>
 
         <transition>
-            <div class="row" v-if="creationStep == 1">
+            <div class="row" v-if="creationStep === 1">
                 <div class="col-12">
                     <div class="bg-light rounded p-2 d-flex flex-column">
                         <h5 class="font-weight-bold text-primary">Step 1</h5>
@@ -39,7 +39,7 @@
 
 
         <transition>
-            <div class="row">
+            <div class="row" v-if="creationStep === 2">
                 <div class="col-12">
                     <div class="bg-light p-2 rounded">
                         <h5 class="text-primary">Step 2</h5>
@@ -91,6 +91,11 @@
                                 </div>
 
                             </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button class="btn btn-outline-primary" @click="submitAll()">Add Steps and Ingredients
+                                    to Recipe</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,8 +108,11 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { AppState } from "../AppState";
+import { ingredientsService } from "../services/IngredientsService";
 import { recipesService } from "../services/RecipesService";
+import { stepsService } from "../services/StepsService";
 import Pop from "../utils/Pop";
 
 export default {
@@ -112,6 +120,7 @@ export default {
         let recipeData = ref({})
         let step = ref({})
         let ingredient = ref({})
+        let router = useRouter()
         return {
             creationStep: computed(() => AppState.creationStep),
             recipeData,
@@ -121,8 +130,9 @@ export default {
             ingredientsToCreate: computed(() => AppState.ingredientsToCreate),
             async submitStepOne() {
                 try {
+                    console.log('creating');
                     await recipesService.createRecipe(recipeData.value)
-                    AppState.step = 2
+                    AppState.creationStep = 2
                 } catch (error) {
                     Pop.toast(error.message)
                 }
@@ -146,6 +156,15 @@ export default {
                     AppState.ingredientsToCreate.push(data)
                 } else {
                     Pop.toast('Fill out all form input fields', "error")
+                }
+            },
+            async submitAll() {
+                try {
+                    await stepsService.createStepsFromArray(AppState.stepsToCreate)
+                    await ingredientsService.createIngredientsFromArray(AppState.ingredientsToCreate)
+                    router.push({ name: 'Recipe', params: { id: AppState.createdRecipe.id } })
+                } catch (error) {
+                    Pop.toast(error.message)
                 }
             }
 

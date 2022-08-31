@@ -32,6 +32,7 @@ class RecipesService {
 
     async createRecipe(data) {
         const res = await api.post('api/recipes', data)
+        console.log(res.data);
         AppState.createdRecipe = res.data
     }
 }
