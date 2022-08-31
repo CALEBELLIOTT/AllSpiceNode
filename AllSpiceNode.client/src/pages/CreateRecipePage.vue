@@ -144,7 +144,7 @@ export default {
                     let data = { body: step.value.body, position: step.value.position, recipeId: step.value.recipeId }
                     AppState.stepsToCreate.push(data)
                     AppState.nextStepPosition++
-                    console.log(AppState.stepsToCreate);
+                    step.value = {}
                 } else {
                     Pop.toast('You must add a body to the step', "error")
                 }
@@ -154,6 +154,7 @@ export default {
                     console.log(ingredient.value);
                     let data = { name: ingredient.value.name, quantity: ingredient.value.quantity, recipeId: AppState.createdRecipe.id }
                     AppState.ingredientsToCreate.push(data)
+                    ingredient.value = {}
                 } else {
                     Pop.toast('Fill out all form input fields', "error")
                 }
@@ -162,7 +163,10 @@ export default {
                 try {
                     await stepsService.createStepsFromArray(AppState.stepsToCreate)
                     await ingredientsService.createIngredientsFromArray(AppState.ingredientsToCreate)
-                    router.push({ name: 'Recipe', params: { id: AppState.createdRecipe.id } })
+                    function route() {
+                        router.push({ name: 'Recipe', params: { id: AppState.createdRecipe.id } })
+                    }
+                    setTimeout(route, 1000)
                 } catch (error) {
                     Pop.toast(error.message)
                 }
@@ -175,4 +179,13 @@ export default {
 
 
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
 </style>

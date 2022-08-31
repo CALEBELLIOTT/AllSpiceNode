@@ -62,9 +62,11 @@ import { categoriesService } from '../services/CategoriesService';
 import { recipesService } from '../services/RecipesService'
 import MediumRecipeCard from '../components/CardComponents/MediumRecipeCard.vue';
 import { router } from '../router';
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
+    let router = useRouter()
     onMounted(async () => {
       await recipesService.getAllRecipes()
       categoriesService.getAllCategories()
