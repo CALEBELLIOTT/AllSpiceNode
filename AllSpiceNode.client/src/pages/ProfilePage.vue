@@ -61,6 +61,7 @@ import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import { accountService } from "../services/AccountService";
 import MediumRecipeCard from "../components/CardComponents/MediumRecipeCard.vue";
+import { onUnmounted } from "vue";
 
 export default {
     async beforeCreate() {
@@ -70,6 +71,11 @@ export default {
         await accountService.getAccountReviews(route.params.id);
     },
     setup() {
+        onUnmounted(() => {
+            AppState.activeProfile = {}
+            AppState.activeProfileRecipes = []
+            AppState.activeProfileReviews = []
+        })
         return {
             profile: computed(() => AppState.activeProfile),
             recipes: computed(() => AppState.activeProfileRecipes),

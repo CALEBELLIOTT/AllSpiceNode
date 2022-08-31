@@ -10,9 +10,9 @@
             <p><span class="text-primary font-weight-bold">"</span>{{ r.body
             }}<span class="text-primary font-weight-bold">"</span></p>
             <!-- <p class="text-muted m-0">Commented On</p> -->
-            <div class="row">
+            <div class="row clickable" @click="navToRecipe(r.recipe.id)">
                 <div class="col-md-6">
-                    <div class="img-container">
+                    <div class="img-container d-flex">
                         <img :src="r.recipe.picture" alt="" class="recipe-img rounded">
                     </div>
                 </div>
@@ -28,10 +28,17 @@
 
 
 <script>
+import { useRouter } from 'vue-router';
+
 export default {
     props: { r: { type: Object, required: true } },
     setup() {
-        return {}
+        let router = useRouter()
+        return {
+            navToRecipe(id) {
+                router.push({ name: 'Recipe', params: { id } })
+            }
+        }
     }
 }
 </script>
@@ -50,5 +57,9 @@ export default {
 
 .img-container {
     max-width: 100%;
+}
+
+.clickable:hover {
+    cursor: pointer;
 }
 </style>

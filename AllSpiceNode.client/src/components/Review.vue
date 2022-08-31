@@ -2,7 +2,8 @@
     <div class="component">
         <div class="bg-light p-2 rounded">
             <div class="d-flex align-items-center">
-                <img :src="r.creator.picture" class="profile-img" height="50" alt="">
+                <img :src="r.creator.picture" class="profile-img clickable" height="50" alt=""
+                    @click="navToProfile(r.creator.id)">
                 <p class="my-0 ms-2">{{ r.creator.name }}</p>
             </div>
             <h2><i class="mdi mdi-star text-primary" v-for="index in r.rating"></i><i
@@ -16,10 +17,17 @@
 
 
 <script>
+import { useRouter } from 'vue-router';
+
 export default {
     props: { r: { type: Object, required: true } },
     setup() {
-        return {}
+        let router = useRouter()
+        return {
+            navToProfile(id) {
+                router.push({ name: "Profile", params: { id } })
+            }
+        }
     }
 }
 </script>
