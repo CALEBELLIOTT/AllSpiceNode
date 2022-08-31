@@ -43,6 +43,12 @@ function sanitizeBody(body) {
 }
 
 class AccountService {
+  async editAccount(body, userInfo) {
+    let original = await this.getAccount(userInfo)
+    original.name = body.name || original.name
+    original.picture = body.picture || original.picture
+    await original.update()
+  }
 
   /**
    * Returns a user account from the Auth0 user object

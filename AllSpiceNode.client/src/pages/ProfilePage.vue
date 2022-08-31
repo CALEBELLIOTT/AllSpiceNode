@@ -93,6 +93,7 @@ export default {
 .profile-img {
     height: 18rem;
     width: 18rem;
+    object-fit: cover;
 }
 
 .divider-line {

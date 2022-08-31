@@ -11,6 +11,7 @@ export class AccountController extends BaseController {
       .get('/:id/recipes', this.getOtherUserRecipes)
       .get('/:id/reviews', this.getOtherUserReviews)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .put('', this.editAccount)
       .get('', this.getUserAccount)
       .get('/favorites', this.getUserFavorites)
       .get('/recipes', this.getUserRecipes)
@@ -19,6 +20,15 @@ export class AccountController extends BaseController {
   async getUserAccount(req, res, next) {
     try {
       const account = await accountService.getAccount(req.userInfo)
+      res.send(account)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editAccount(req, res, next) {
+    try {
+      const account = await accountService.updateAccount(req.userInfo, req.body)
       res.send(account)
     } catch (error) {
       next(error)

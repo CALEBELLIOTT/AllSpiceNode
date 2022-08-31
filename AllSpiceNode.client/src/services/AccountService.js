@@ -28,6 +28,13 @@ class AccountService {
     AppState.activeProfileReviews = res.data
   }
 
+  async updateAccount(data) {
+    console.log(data.value);
+    const res = await api.put('account', data.value)
+    console.log(res.data);
+    return res.data
+  }
+
 }
 
 export const accountService = new AccountService()
