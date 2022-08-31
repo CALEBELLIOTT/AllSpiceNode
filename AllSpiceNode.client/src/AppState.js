@@ -22,5 +22,13 @@ export const AppState = reactive({
   // Profile Page
   activeProfile: {},
   activeProfileRecipes: [],
-  activeProfileReviews: {}
+  activeProfileReviews: {},
+
+
+  // Create Recipe Page
+  creationStep: 1,
+  createdRecipe: {},
+  nextStepPosition: 1,
+  stepsToCreate: [],
+  ingredientsToCreate: []
 })
