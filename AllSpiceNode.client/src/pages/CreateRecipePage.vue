@@ -137,7 +137,7 @@ export default {
                     Pop.toast(error.message)
                 }
             },
-            addStep() {
+            async addStep() {
                 if (step.value.body) {
                     step.value.position = AppState.nextStepPosition
                     step.value.recipeId = AppState.createdRecipe.id
@@ -145,30 +145,33 @@ export default {
                     AppState.stepsToCreate.push(data)
                     AppState.nextStepPosition++
                     step.value = {}
+                    await stepsService.createStep(data)
                 } else {
                     Pop.toast('You must add a body to the step', "error")
                 }
             },
-            addIngredient() {
+            async addIngredient() {
                 if (ingredient.value.name && ingredient.value.quantity) {
                     console.log(ingredient.value);
                     let data = { name: ingredient.value.name, quantity: ingredient.value.quantity, recipeId: AppState.createdRecipe.id }
                     AppState.ingredientsToCreate.push(data)
                     ingredient.value = {}
+                    await ingredientsService.createIngredient(data)
                 } else {
                     Pop.toast('Fill out all form input fields', "error")
                 }
             },
             async submitAll() {
                 try {
-                    await stepsService.createStepsFromArray(AppState.stepsToCreate)
-                    await ingredientsService.createIngredientsFromArray(AppState.ingredientsToCreate)
+                    // await stepsService.createStepsFromArray(AppState.stepsToCreate)
+                    // await ingredientsService.createIngredientsFromArray(AppState.ingredientsToCreate)
                     function route() {
                         router.push({ name: 'Recipe', params: { id: AppState.createdRecipe.id } })
                         AppState.createdRecipe = {}
                         AppState.ingredientsToCreate = []
                         AppState.stepsToCreate = []
                         AppState.creationStep = 1
+                        AppState.nextStepPosition = 1
                     }
                     setTimeout(route, 1000)
                 } catch (error) {

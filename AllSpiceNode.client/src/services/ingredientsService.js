@@ -15,6 +15,11 @@ class IngredientsService {
     })
   }
 
+  async createIngredient(data) {
+    const res = await api.post('api/ingredients', data)
+    console.log(res.data);
+  }
+
 }
 
 
