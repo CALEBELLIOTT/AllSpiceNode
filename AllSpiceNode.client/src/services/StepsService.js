@@ -11,9 +11,13 @@ class StepsService {
 
 
   async createStepsFromArray(steps) {
-    steps.forEach(s => {
-      const res = api.post('api/steps', s)
-      console.log(res.data);
+    // steps.forEach(s => {
+    //   const res = api.post('api/steps', s)
+    //   console.log(res.data);
+    // })
+
+    Promise.all(steps).then((values) => {
+      const res = api.post('api/steps', values)
     })
   }
 }
