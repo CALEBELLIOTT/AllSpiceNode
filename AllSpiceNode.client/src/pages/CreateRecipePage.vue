@@ -165,6 +165,10 @@ export default {
                     await ingredientsService.createIngredientsFromArray(AppState.ingredientsToCreate)
                     function route() {
                         router.push({ name: 'Recipe', params: { id: AppState.createdRecipe.id } })
+                        AppState.createdRecipe = {}
+                        AppState.ingredientsToCreate = []
+                        AppState.stepsToCreate = []
+                        AppState.creationStep = 1
                     }
                     setTimeout(route, 1000)
                 } catch (error) {

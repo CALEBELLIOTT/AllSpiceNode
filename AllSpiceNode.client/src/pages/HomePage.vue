@@ -107,6 +107,8 @@ export default {
 .creator-img {
   border-radius: 50%;
   height: 4rem;
+  width: 4rem;
+  object-fit: cover;
   transition: 200ms;
 }
 

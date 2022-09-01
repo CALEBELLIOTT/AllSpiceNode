@@ -176,6 +176,9 @@ export default {
 
 .profile-img {
     border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
 }
 
 .pointer {

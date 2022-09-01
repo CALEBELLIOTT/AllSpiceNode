@@ -36,5 +36,8 @@ export default {
 <style lang="scss" scoped>
 .profile-img {
     border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
 }
 </style>
